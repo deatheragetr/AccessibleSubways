@@ -1,6 +1,7 @@
 require 'httparty'
 require 'csv'
 namespace :populate do
+  desc "Populates the database with subway entrance/exit data"
   task :subway_entrances => :environment do
     entrances_csv    = HTTParty.get('http://web.mta.info/developers/data/nyct/subway/StationEntrances.csv')
     parsed_entrances = CSV.parse(entrances_csv)
