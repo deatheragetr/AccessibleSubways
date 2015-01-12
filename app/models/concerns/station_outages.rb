@@ -1,3 +1,5 @@
+# equipment_url = "http://advisory.mtanyct.info/eedevwebsvc/allequipments.aspx"
+
 module StationOutages
   def self.get_outages
     xml_feed = HTTParty.get('http://web.mta.info/developers/data/nyct/nyct_ene.xml')
