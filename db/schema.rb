@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150111212213) do
+ActiveRecord::Schema.define(version: 20150113033616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,18 @@ ActiveRecord::Schema.define(version: 20150111212213) do
     t.string   "corner"
     t.float    "entrance_latitude"
     t.float    "entrance_longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "equipment", force: true do |t|
+    t.string   "station"
+    t.string   "borough"
+    t.string   "train_no"
+    t.string   "equipment_no"
+    t.string   "equipment_type"
+    t.string   "serving"
+    t.boolean  "ada"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

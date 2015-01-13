@@ -1,6 +1,24 @@
 require 'httparty'
 require 'csv'
 namespace :populate do
+  desc "Populates the database with subway equipment data"
+  task :subway_equipment => :environment do
+    equipment_xml = HTTParty.get('http://advisory.mtanyct.info/eedevwebsvc/allequipments.aspx')
+    equipment_list = equipment_xml['NYCEquipments']['equipment']
+
+    equipment_list.each do |eq|
+      equipment = Equipment.new
+      equipment.station        = eq['station']
+      equipment.borough        = eq['borough']
+      equipment.train_no       = eq['trainno'].gsub(/METRO-NORTH|LIRR|\//, '')
+      equipment.equipment_no   = eq['equipmentno']
+      equipment.equipment_type = eq['equipmenttype']
+      equipment.serving        = eq['serving']
+      equipment.ada            = (eq['ADA'] == 'Y')
+      equipment.save!
+    end
+  end
+
   desc "Populates the database with subway entrance/exit data"
   task :subway_entrances => :environment do
     entrances_csv    = HTTParty.get('http://web.mta.info/developers/data/nyct/subway/StationEntrances.csv')

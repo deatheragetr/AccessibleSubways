@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  station: MyString
+  borough: MyString
+  train_no: MyString
+  equipment_no: MyString
+  equipment_type: MyString
+  serving: MyString
+  ada: false
+
+two:
+  station: MyString
+  borough: MyString
+  train_no: MyString
+  equipment_no: MyString
+  equipment_type: MyString
+  serving: MyString
+  ada: false
