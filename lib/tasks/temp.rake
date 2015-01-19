@@ -47,9 +47,9 @@ namespace :temp do
     dup_names = Station.all.group_by(&:name).select { |name, stations| stations.count > 1 }
     dup_names.each do |shared_name, stations|
       stations.each do |station|
-        puts "station name: #{station.name} \nlongitude: #{station.longitude}\nlatitude: #{station.latitude}"
-        new_name = gets.chomp
-        station.update(name: new_name)
+        puts "station name: #{station.name}\nlat/long: #{station.latitude}, #{station.longitude}"
+        new_name = STDIN.gets.chomp
+        station.update(name: new_name) if new_name != ''
       end
     end
   end
