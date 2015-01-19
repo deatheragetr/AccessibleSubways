@@ -22,4 +22,35 @@ namespace :temp do
     end
     stations.map(&:uniq)
   end
+
+  task :lat_long_stations => :environment do
+    Entrance.all.each do |entrance|
+      station = Station.where(:name => entrance.station_name)
+                        .where(:latitude => entrance.station_latitude)
+                        .where(:longitude => entrance.station_longitude)
+                        .first
+
+      unless station
+        station = Station.create(
+          :name => entrance.station_name,
+          :latitude => entrance.station_latitude,
+          :longitude => entrance.station_longitude
+          )
+      end
+
+      entrance.station_id = station.id
+      entrance.save!
+    end
+  end
+
+  task :chomp_up_new_station_names => :environment do
+    dup_names = Station.all.group_by(&:name).select { |name, stations| stations.count > 1 }
+    dup_names.each do |shared_name, stations|
+      stations.each do |station|
+        puts "station name: #{station.name} \nlongitude: #{station.longitude}\nlatitude: #{station.latitude}"
+        new_name = gets.chomp
+        station.update(name: new_name)
+      end
+    end
+  end
 end
