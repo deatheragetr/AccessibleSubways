@@ -44,12 +44,21 @@ namespace :temp do
   end
 
   task :chomp_up_new_station_names => :environment do
+    review_collection = []
+
     dup_names = Station.all.group_by(&:name).select { |name, stations| stations.count > 1 }
     dup_names.each do |shared_name, stations|
       stations.each do |station|
-        puts "station name: #{station.name}\n#{station.latitude}, #{station.longitude}"
+        puts "#{station.id} Station Name: #{station.name}\n#{station.latitude}, #{station.longitude}"
+        Launchy.open("https://www.google.com/maps/search/#{station.latitude},+#{station.longitude}/@#{station.latitude},#{station.longitude}")
+
+        puts "New Station Name:"
         new_name = STDIN.gets.chomp
         station.update(name: new_name) if new_name != ''
+
+        puts "Review?"
+        review = STDIN.gets.chomp
+        review_collection << station.name if review == 'y'
       end
     end
   end
