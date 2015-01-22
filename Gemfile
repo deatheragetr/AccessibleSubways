@@ -37,6 +37,6 @@ gem 'spring',        group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-gem 'httparty', group: :development
+gem 'httparty'
 gem 'pry'
 gem 'launchy'
