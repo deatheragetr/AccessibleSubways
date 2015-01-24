@@ -49,4 +49,28 @@ namespace :populate do
       )
     end
   end
+
+  desc "Properly map stations to equipment list"
+  task :map_entrances => :environment do
+    equipment_stations_list = { "125TH ST STATION" => "125 St [A,B,C,D] && 125 St [1] && 125 St [4,5,6]" }
+    equipment_stations_list.each do |equipment_station_name, entrance_station_names|
+      equipment = Equipment.where(station_name: equipment_station_name)
+      if entrance_station_names.match(/\s*&&\s*/)
+        entrance_station_names = entrance_station_names.split(/\s*&&\s*/)
+        entrance_station_names.each do |esn|
+          station = Station.find_by(name: esn)
+          equipment.each do |eqp|
+            if (eqp.train_no.split('') - station.served_routes).empty?
+              eqp.update(station: station)
+            end
+          end
+        end
+      else
+        station = Station.find_by(name: entrance_station_names)
+        equipment.each { |eqp| eqp.update(station: station) }
+      end
+    end
+    # Verify no orphaned equipment
+    Equipment.all.each { |eqp| fail "Equipment with id #{eqp.id} is orphaned" if eqp.station.nil? }
+  end
 end

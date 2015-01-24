@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150118031714) do
+ActiveRecord::Schema.define(version: 20150124204800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20150118031714) do
   end
 
   create_table "equipment", force: true do |t|
-    t.string   "station"
+    t.string   "station_name"
     t.string   "borough"
     t.string   "train_no"
     t.string   "equipment_no"
@@ -52,7 +52,10 @@ ActiveRecord::Schema.define(version: 20150118031714) do
     t.boolean  "ada"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "station_id"
   end
+
+  add_index "equipment", ["station_id"], name: "index_equipment_on_station_id", using: :btree
 
   create_table "stations", force: true do |t|
     t.string   "name"
