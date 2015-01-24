@@ -1,5 +1,6 @@
 require 'httparty'
 require 'csv'
+
 namespace :populate do
   desc "Populates the database with subway equipment data"
   task :subway_equipment => :environment do
