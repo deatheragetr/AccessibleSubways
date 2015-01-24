@@ -40,3 +40,6 @@ gem 'spring',        group: :development
 gem 'httparty'
 gem 'pry'
 gem 'launchy'
+
+gem 'dalli'
+gem 'memcachier'
