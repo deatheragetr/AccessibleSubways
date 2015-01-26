@@ -1,4 +1,12 @@
 namespace :temp do
+  task :ada_station => :environment do
+    Station.all.each do |station|
+      entrances = station.entrances
+      is_ada = entrances.map(&:ada).any? { |ada| ada == true }
+      station.update(ada: is_ada)
+    end
+  end
+
   task :normalize_db => :environment do
     Entrance.all.each do |entrance|
       station = Station.find_or_create_by(:name => entrance.station_name)
