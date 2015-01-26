@@ -1,6 +1,7 @@
 module EquipmentHelper
-  def outage_return_blob
-    Equipment.all.map { |equipment| as_blob(equipment) }.compact
+  def outage_return_blob(opts = {})
+    equipment_list = opts[:station_ids] ? Equipment.where('station_id in (?)', opts[:station_ids]) : Equipment.all
+    equipment_list.map { |equipment| as_blob(equipment) }.compact
   end
 
   def as_blob(equipment)
@@ -8,7 +9,7 @@ module EquipmentHelper
     unless outages.blank?
       {
         station_id: equipment.station_id,
-        outages: outagify(outages)
+        outages: outagify(outages, equipment)
       }
     end
   end
@@ -18,11 +19,11 @@ module EquipmentHelper
       {
         serving:  outage['serving'],
         equipment_type: outage['equipmenttype'],
-        routes_affected: equipment.find_by(equipement_num: outage['equipment']),
+        routes_affected: equipment.equipment_no,
         reason: outage['reason'],
         outage_start_date: DateTime.strptime(outage['outagedate'], '%m/%d/%Y %l:%M:%S %p'),
-        estimated_return_of_service: DateTime.strptime(outage['esitmated_return_to_service'], '%m/%d/%Y %l:%M:%S %p'),
-        ada: ourtage['ADA']
+        estimated_return_of_service: DateTime.strptime(outage['estimatedreturntoservice'], '%m/%d/%Y %l:%M:%S %p'),
+        ada: outage['ADA']
       }
     end
   end
