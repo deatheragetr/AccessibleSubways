@@ -13,6 +13,6 @@ class Entrance < ActiveRecord::Base
 
 
   def routes
-    super.split('')
+    super.split('').sort
   end
 end
