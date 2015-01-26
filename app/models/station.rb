@@ -6,9 +6,11 @@ class Station < ActiveRecord::Base
     {
       id: id,
       station_name: name,
+      ada: ada,
       station_longitude: longitude,
       station_latitude: latitude,
-      served_routes: served_routes
+      served_routes: served_routes,
+      accessible_routes: accessible_routes
     }
   end
 
