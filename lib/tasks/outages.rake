@@ -8,9 +8,9 @@ namespace :outages do
     Rails.cache.clear
 
     outages.each do |outage|
-      cached_outages = Rails.cache.fetch(outage['station']) || []
+      cached_outages = Rails.cache.fetch(outage['equipment']) || []
       cached_outages << outage
-      Rails.cache.write(outage['station'], cached_outages)
+      Rails.cache.write(outage['equipment'], cached_outages)
     end
   end
 end
