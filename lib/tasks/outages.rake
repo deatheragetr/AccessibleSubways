@@ -12,6 +12,5 @@ namespace :outages do
       cached_outages << outage
       Rails.cache.write(outage['equipment'], cached_outages)
     end
-require 'pry'; binding.pry
   end
 end
