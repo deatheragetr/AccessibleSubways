@@ -21,7 +21,7 @@ module EquipmentHelper
         serving:  outage['serving'],
         equipment_type: outage['equipmenttype'],
         equipment_no: equipment.equipment_no,
-        routes_affected: equipment.routes,
+        routes_affected: equipment.routes.join(','),
         reason: outage['reason'],
         outage_start_date: DateTime.strptime(outage['outagedate'], '%m/%d/%Y %l:%M:%S %p'),
         estimated_return_of_service: DateTime.strptime(outage['estimatedreturntoservice'], '%m/%d/%Y %l:%M:%S %p'),
