@@ -17,9 +17,11 @@ module EquipmentHelper
   def outagify(outages, equipment)
     outages.map do |outage|
       {
+        station_id: equipment.station_id,
         serving:  outage['serving'],
         equipment_type: outage['equipmenttype'],
-        routes_affected: equipment.equipment_no,
+        equipment_no: equipment.equipment_no,
+        routes_affected: equipment.routes,
         reason: outage['reason'],
         outage_start_date: DateTime.strptime(outage['outagedate'], '%m/%d/%Y %l:%M:%S %p'),
         estimated_return_of_service: DateTime.strptime(outage['estimatedreturntoservice'], '%m/%d/%Y %l:%M:%S %p'),
