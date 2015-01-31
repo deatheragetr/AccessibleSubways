@@ -23,8 +23,8 @@ module EquipmentHelper
         equipment_no: equipment.equipment_no,
         routes_affected: equipment.routes,
         reason: outage['reason'],
-        outage_start_date: DateTime.strptime(outage['outagedate'], '%m/%d/%Y %l:%M:%S %p'),
-        estimated_return_of_service: DateTime.strptime(outage['estimatedreturntoservice'], '%m/%d/%Y %l:%M:%S %p'),
+        outage_start_date: DateTime.strptime(outage['outagedate'], '%m/%d/%Y %l:%M:%S %p').to_i,
+        estimated_return_of_service: DateTime.strptime(outage['estimatedreturntoservice'], '%m/%d/%Y %l:%M:%S %p').to_i,
         ada: outage['ADA']
       }
     end
