@@ -10,7 +10,9 @@ class Station < ActiveRecord::Base
       station_longitude: longitude,
       station_latitude: latitude,
       served_routes: served_routes,
-      accessible_routes: accessible_routes
+      accessible_routes: accessible_routes,
+      equipment_count: equipments.count,
+      equipment: equipments
     }
   end
 
